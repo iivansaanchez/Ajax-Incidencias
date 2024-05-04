@@ -9,24 +9,27 @@
 <body>
     <h1>Registro de Incidencias</h1>
 
-    <form name="signup">
+    <form method="POST" name="signup">
         <label for="fecha">Fecha del Incidente:</label><br>
         <!-- Cuando ponemos min y max en un input type = date este te dara solo la opcion de selecionar hasta esas fechas-->
         <input type="date" id="fecha" name="fecha"><br>
+        <p id="errorFecha"></p>
 
         <label for="reportanteEmail">Email del Reportante:</label><br>
         <input type="email" id="reportanteEmail" name="reportanteEmail"><br>
+        <p id="errorEmail"></p>
 
         <label for="reportanteNombre">Nombre del Reportante:</label><br>
-        <!-- Cuando ponemos en un input type text el minLenght tamaño minimo este no te permitira introducir menos de ese tamaño-->
         <input type="text" id="reportanteNombre" name="reportanteNombre" readonly><br>
 
 
         <label for="telefono">Teléfono de Contacto:</label><br>
         <input type="tel" id="telefono" name="telefono"><br>
+        <p id="errorTelefono"></p>
 
         <label for="hora">Hora del Incidente:</label><br>
         <input type="text" id="hora" name="hora"><br>
+        <p id="errorHora"></p>
 
         <label for="aula">Aula donde ocurrió:</label><br>
         <select id="aula">
@@ -35,6 +38,7 @@
 
         <label for="descripcion">Descripción Detallada:</label><br>
         <textarea id="descripcion" name="descripcion"></textarea><br>
+        <p id="errorDescripcion"></p>
 
         <button type="submit" id="button">Registrar Incidencia</button>
     </form>

@@ -1,8 +1,10 @@
 //Creamos constantes con las url que vayamos a usar
 const urlUsuario = "http://localhost:3000/usuarios";
 const urlAulas = "http://localhost:3000/aulas";
+const urlIncidencias = "http://localhost:3000/incidencias";
 
 //Rescatamos todos los campos del formulario
+const idUsuario = 0;
 const fecha = document.getElementById('fecha');
 const email = document.getElementById('reportanteEmail');
 const nombre = document.getElementById('reportanteNombre');
@@ -10,6 +12,10 @@ const telefono = document.getElementById('telefono');
 const hora = document.getElementById('hora');
 const aula = document.getElementById('aula');
 const descripcion = document.getElementById('descripcion');
+
+//Rescatamos boton y formulario
+const form = document.querySelector('form');
+const boton = document.getElementById('button');
 
 //En primer lugar validamos la fecha
 function validateDate(fecha){
@@ -34,7 +40,7 @@ async function validateEmail(email){
         emailIsValidated = false;
         //La validacion de este campo consiste en saber si existe en la base de datos o no entonces:
         //Dentro del fetch metemos la url y le asignamos al campo email el introducido para ver la respuesta de la API
-        const respuesta = await fetch(urlUsuario+'?email='+email);
+        const respuesta = await fetch(`${urlUsuario}?email=${email}`);
     
         //Si la respuesta no es ok
         if(!respuesta.ok){
@@ -48,13 +54,12 @@ async function validateEmail(email){
             usuario.forEach(data => {
                 //Cuando coincida el email extraeremos el nombre
                 if(data.email === email){
-                    nombre.id = data.id;
+                    idUsuario = data.id;
                     nombre.value = data.nombre;
                     emailIsValidated = true;
                 }
             })
         }
-        
     } catch (error) {
         console.error(error);
     }
@@ -76,8 +81,18 @@ function validateTelephone(telephone){
 //En cuarto lugar, debemos validar la hora en la que ocurrio la incidencia
 
 function validateHour(hour){
+
     isHourValidated = false;
-        
+    const validatedNumber = /^[1-6]$/;
+    //En primer lugar comprobamos si la hora es R
+    if(hour.toUpperCase() === 'R'){
+        isHourValidated = true;
+    }else{
+        const number = parseInt(hour);
+        if(validatedNumber.test(number)){
+            isHourValidated = true;
+        }
+    }   
     return isHourValidated;
 }
 
@@ -113,11 +128,83 @@ getClassroom();
 //Validaremos la descripcion teniendo en cuenta que debe superar los 30 caracteres
 function validateDescription(description){
     isDescriptionValidated = false;
-    if(descripcion.length >= 30){
+    if(description.length >= 30){
         isDescriptionValidated = true;
     }
     return isDescriptionValidated;
 }
 
+
+//Una vez que tenemos todas las validaciones hechas tenemos que hacer la funcion añadir incidencia
+boton.addEventListener("click", async(e) =>{
+    e.preventDefault();
+    
+    //Inicializamos variables de todos los campos para llevar un control de validacion
+    validatedFecha = false;
+    validatedEmail = false;
+    validatedTelefono = false;
+    validatedHora = false;
+    validatedDescripcion = false;
+
+    //Validamos la fecha
+    if(validateDate(fecha.value)){
+        validatedFecha = true;
+    }else{
+        const msgError = document.getElementById("errorFecha");
+        msgError.innerHTML = "ERROR, la fecha no puede ser posterior al día actual ni anterior al inicio del curso (01/09/2023)";
+    }
+    //Validamos el email
+    if(validateEmail(email.value)){
+        validatedEmail = true;
+    }else{
+        const msgError = document.getElementById("errorEmail");
+        msgError.innerHTML = "ERROR, el email no se encuentra en la API";
+    }
+    //Validamos el telefono
+    if(validateTelephone(telefono.value)){
+        validatedTelefono = true;
+    }else{
+        const msgError = document.getElementById("errorTelefono");
+        msgError.innerHTML = "ERROR, el telefono no tiene 9 caracteres";
+    }
+    //Validamos la hora
+    if(validateHour(hora.value)){
+        validatedHora = true;
+    }else{
+        const msgError = document.getElementById("errorHora");
+        msgError.innerHTML = "ERROR, la hora debe estar comprendida entre 1-6 o R en caso de que fuese recreo";
+    }
+    //Validamos la descripcion
+    if(validateDescription(descripcion.value)){
+        validatedDescripcion = true;
+    }else{
+        const msgError = document.getElementById("errorDescripcion");
+        msgError.innerHTML = "ERROR, la descripcion debe tener más de 30 caracteres";
+    }
+    //Una vez todo validado comprobamos que todos las varibles sean true para poder hacer un post valido de una incindencia
+    if(validatedFecha && validatedEmail && validatedTelefono && validatedHora && validatedDescripcion){
+        //Una vez dentro creamos una variable respuesta
+        /*
+        Cuando hacemos una peticion POST aparte de llamar al await para procesar la promesa, en el fetch debemos
+        poner la url a la que hacemos la peticion seguido del encabezado y el cuerpo del objeto que vamos a añadir
+        */
+        const respuesta = await fetch (urlIncidencias, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            //JSON.stringify --> convierte un objeto de JavaScript en una cadena JSON
+            body: JSON.stringify({
+                "fecha_incidente": fecha.value,
+                "id_reportante": idUsuario,
+                "telefono_contacto": telefono.value,
+                "hora_incidente": hora.value.toUpperCase(),
+                "id_aula": aula.value,
+                "descripcion": descripcion.value,
+                "estado": "Abierta"
+            })
+        })
+    }
+})
 
 

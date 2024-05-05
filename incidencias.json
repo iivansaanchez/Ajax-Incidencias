@@ -1,93 +1,13 @@
 {
   "incidencias": [
     {
-      "id": "1",
-      "fecha_incidente": "2023-11-15",
-      "id_reportante": 1,
-      "telefono_contacto": "123456789",
-      "hora_incidente": "2",
-      "id_aula": 3,
-      "descripcion": "Ocurrió un incidente grave durante la clase.",
-      "estado": "Abierta"
-    },
-    {
-      "id": "2",
-      "fecha_incidente": "2023-11-16",
-      "id_reportante": 2,
-      "telefono_contacto": "987654321",
-      "hora_incidente": "R",
-      "id_aula": 1,
-      "descripcion": "Se reportó un problema de seguridad en el laboratorio.",
-      "estado": "En Proceso"
-    },
-    {
-      "id": "267a",
-      "fecha_incidente": "2024-05-01",
-      "id_reportante": "reportanteNombre",
-      "telefono_contacto": "765432198",
-      "hora_incidente": "2",
-      "id_aula": "9",
-      "descripcion": "ciurbecybhrejqhblrvejqhcbrjñlehqblryebqbcjlhrblshjabcjrhbeqljchbejrqjbvlrjehbqhjverñwqhbvñjlre",
-      "estado": "Abierta"
-    },
-    {
-      "id": "8711",
-      "fecha_incidente": "2024-05-03",
-      "id_reportante": "reportanteNombre",
+      "id": "cb1c",
+      "fecha_incidente": "2024-05-02",
+      "id_reportante": "4",
       "telefono_contacto": "765432199",
       "hora_incidente": "R",
-      "id_aula": "4",
-      "descripcion": "ñiucebuwccjewbcuewygcewyuqcbewjhqcbewyqñcibewñkjceñw",
-      "estado": "Abierta"
-    },
-    {
-      "id": "e40b",
-      "fecha_incidente": "2024-05-03",
-      "id_reportante": "1",
-      "telefono_contacto": "765432199",
-      "hora_incidente": "R",
-      "id_aula": "4",
-      "descripcion": "ñiucebuwccjewbcuewygcewyuqcbewjhqcbewyqñcibewñkjceñw",
-      "estado": "Abierta"
-    },
-    {
-      "id": "4c95",
-      "fecha_incidente": "2024-05-01",
-      "id_reportante": "reportanteNombre",
-      "telefono_contacto": "765432199",
-      "hora_incidente": "2",
-      "id_aula": "1",
-      "descripcion": "icbñweibcñvdvhbe divkñsbckdjbsñakcjbdskabcñkjds",
-      "estado": "Abierta"
-    },
-    {
-      "id": "23a7",
-      "fecha_incidente": "2024-05-01",
-      "id_reportante": "reportanteNombre",
-      "telefono_contacto": "765432199",
-      "hora_incidente": "2",
-      "id_aula": "1",
-      "descripcion": "iurehqicerbnñiucbrekñjqbcuberñwiucneiwñhcew",
-      "estado": "Abierta"
-    },
-    {
-      "id": "5ab0",
-      "fecha_incidente": "2024-04-30",
-      "id_reportante": "reportanteNombre",
-      "telefono_contacto": "765432199",
-      "hora_incidente": "2",
-      "id_aula": "1",
-      "descripcion": "icbñweibcñvdvhbe divkñsbckdjbsñakcjbdskabcñkjds",
-      "estado": "Abierta"
-    },
-    {
-      "id": "1ac2",
-      "fecha_incidente": "2024-05-01",
-      "id_reportante": "reportanteNombre",
-      "telefono_contacto": "765432199",
-      "hora_incidente": "2",
-      "id_aula": "1",
-      "descripcion": "icbñweibcñvdvhbe divkñsbckdjbsñakcjbdskabcñkjds",
+      "id_aula": "2",
+      "descripcion": "frjerkjfñkejhqhfrejufrjkehcrñknlfkjrbevbwñrjkevwñkrjnñjkwenvr",
       "estado": "Abierta"
     }
   ],

@@ -4,7 +4,6 @@ const urlAulas = "http://localhost:3000/aulas";
 const urlIncidencias = "http://localhost:3000/incidencias";
 
 //Rescatamos todos los campos del formulario
-const idUsuario = 0;
 const fecha = document.getElementById('fecha');
 const email = document.getElementById('reportanteEmail');
 const nombre = document.getElementById('reportanteNombre');
@@ -54,16 +53,20 @@ async function validateEmail(email){
             usuario.forEach(data => {
                 //Cuando coincida el email extraeremos el nombre
                 if(data.email === email){
-                    idUsuario = data.id;
+                    //.value almacena el id
+                    nombre.id = data.id;
+                    //Almacenamos el nombre del usuario
                     nombre.value = data.nombre;
                     emailIsValidated = true;
                 }
             })
         }
+
+        return emailIsValidated;
+
     } catch (error) {
         console.error(error);
     }
-    return emailIsValidated;
 }
 
 //En tercer lugar, validamos el telefono
@@ -149,13 +152,19 @@ boton.addEventListener("click", async(e) =>{
     //Validamos la fecha
     if(validateDate(fecha.value)){
         validatedFecha = true;
+        const msgError = document.getElementById("errorFecha");
+        msgError.innerHTML = "";
+   
     }else{
         const msgError = document.getElementById("errorFecha");
         msgError.innerHTML = "ERROR, la fecha no puede ser posterior al día actual ni anterior al inicio del curso (01/09/2023)";
     }
     //Validamos el email
-    if(validateEmail(email.value)){
+    const emailValido = await validateEmail(email.value);
+    if(emailValido){
         validatedEmail = true;
+        const msgError = document.getElementById("errorEmail");
+        msgError.innerHTML = "";
     }else{
         const msgError = document.getElementById("errorEmail");
         msgError.innerHTML = "ERROR, el email no se encuentra en la API";
@@ -163,6 +172,8 @@ boton.addEventListener("click", async(e) =>{
     //Validamos el telefono
     if(validateTelephone(telefono.value)){
         validatedTelefono = true;
+        const msgError = document.getElementById("errorTelefono");
+        msgError.innerHTML = "";
     }else{
         const msgError = document.getElementById("errorTelefono");
         msgError.innerHTML = "ERROR, el telefono no tiene 9 caracteres";
@@ -170,6 +181,9 @@ boton.addEventListener("click", async(e) =>{
     //Validamos la hora
     if(validateHour(hora.value)){
         validatedHora = true;
+        const msgError = document.getElementById("errorHora");
+        msgError.innerHTML = "";
+  
     }else{
         const msgError = document.getElementById("errorHora");
         msgError.innerHTML = "ERROR, la hora debe estar comprendida entre 1-6 o R en caso de que fuese recreo";
@@ -177,6 +191,8 @@ boton.addEventListener("click", async(e) =>{
     //Validamos la descripcion
     if(validateDescription(descripcion.value)){
         validatedDescripcion = true;
+        const msgError = document.getElementById("errorDescripcion");
+        msgError.innerHTML = "";
     }else{
         const msgError = document.getElementById("errorDescripcion");
         msgError.innerHTML = "ERROR, la descripcion debe tener más de 30 caracteres";
@@ -196,7 +212,7 @@ boton.addEventListener("click", async(e) =>{
             //JSON.stringify --> convierte un objeto de JavaScript en una cadena JSON
             body: JSON.stringify({
                 "fecha_incidente": fecha.value,
-                "id_reportante": idUsuario,
+                "id_reportante": nombre.id,
                 "telefono_contacto": telefono.value,
                 "hora_incidente": hora.value.toUpperCase(),
                 "id_aula": aula.value,
